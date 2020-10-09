@@ -36,18 +36,12 @@ const checkGameStatus = () => {
             currentBoard[winningCombo[0]] === currentBoard[winningCombo[1]] &&
             currentBoard[winningCombo[0]] === currentBoard[winningCombo[2]]) {
                 winner =  currentBoard[winningCombo[0]]
-                for (let c=0; c<3; c++) {
+                for (let c=0; c<3; c++) // To change color to red
                     cellDivs[winningCombo[c]].classList.add('won') 
-                    console.log("c", c)
-                    console.log("winningCombo[c]", winningCombo[c])
-                    console.log("cellDivs[winningCombo[c]]", cellDivs[winningCombo[c]])
-                    console.log("cellDivs[winningCombo[c]].classList", cellDivs[winningCombo[c]].classList)
-                    console.log("c", c)
-                }
                 return
             }
     })
-    if (winner === 'x' || winner === 'y') {
+    if (winner === 'x' || winner === 'o') {
         gameIsAlive = false
         statusDiv.innerHTML = winner === 'x' ? "x has won" : "o has won"
     } else {
@@ -56,14 +50,14 @@ const checkGameStatus = () => {
           if (!currentBoard[i])
             boardIsFull = false;
         if (boardIsFull) {
-            statusDiv.innerHTML = "Game is tied"
+            statusDiv.innerHTML = "Game is a draw"
             gameIsAlive = false
         } else {
             xToPlay = !xToPlay
             if (xToPlay)
                 statusDiv.innerHTML = "X Goes Next"
             else
-                statusDiv.innerHTML = "O goes next"
+                statusDiv.innerHTML = "O Goes next"
         }        
     }
 }
