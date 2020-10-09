@@ -31,6 +31,7 @@ body {
     margin-top: 25px;
     font-size: 25px;
     justify-content: space-around;
+    height: 30px;
 }
 
 .reset {
@@ -51,13 +52,34 @@ body {
 }
 
 .game-cell {
+    background: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
     height: 200px;
     width: 200px;
-    background: lightgray;
-    
 }
 
+/* 
+   Before or After pseudo element to display cell content for class x
+*/
 
+.x::before {
+    content: 'x';
+    font-size: 200px;
+}
 
+/* 
+   Before or After pseudo element to display cell content for class o
+*/
 
+.o::before {
+    content: 'o';
+    font-size: 200px;
+}
+
+.won::before {
+    color: red
+}
 
