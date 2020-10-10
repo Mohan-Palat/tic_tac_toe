@@ -2,9 +2,9 @@ console.log("main.js loaded")
 
 // HTML Elements
 
-const statusDiv = document.querySelector('.status')  // Status Display
-console.log(`Status Div ${statusDiv}`)               // shows 1. ? Won 2. ?'s turn 3. Game tied
-const resetDiv = document.querySelector('.reset')    // Reset and restart button
+const statusDiv = document.querySelector('.status-action')  // Status Display
+console.log(`Status Div ${statusDiv}`)                      // shows 1. ? Won 2. ?'s turn 3. Game tied
+const resetDiv = document.querySelector('.reset')           // Reset and restart button
 console.log(`Reset Div ${resetDiv}`)
 const cellDivs = document.querySelectorAll('.game-cell')  // Board / Grid
 console.log(`cellDivs Div ${cellDivs}`)
@@ -13,20 +13,21 @@ console.log(`cellDivs Div ${cellDivs}`)
 
 let gameIsAlive = true;
 let xToPlay = true;
+let oIsAi = undefined;
+const winningCombos = [
+    [0, 1, 2],                  // Using the array inside array for winning grid
+    [3, 4, 5],                  // and array created from div class list
+    [6, 7, 8],                  // makes it easier to expand the grid later
+    [0, 3, 6],                  // and keep the code really DRY
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+]
 
 // Game Functions
 
 const checkGameStatus = () => {
-    const winningCombos = [
-        [0, 1, 2],                  // Using the array inside array for winning grid
-        [3, 4, 5],                  // and array created from div class list
-        [6, 7, 8],                  // makes it easier to expand the grid later
-        [0, 3, 6],                  // and keep the code really DRY
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ]
     let currentBoard = []
     for (let i=0; i<=8; i++) 
         currentBoard.push(cellDivs[i].classList[2])
@@ -91,6 +92,14 @@ const clickedOnACell = (e) => {
     checkGameStatus()
 }
 
+const clickedOnStatus = (e) => {
+    console.log(e)
+    if (oIsAi===true || oIsAi===false) // Decided already
+        return
+    console.log("AI Undecided")
+    oIsAi = true
+}
+
 // Event Listeners
 
 resetDiv.addEventListener('click', clickedOnReset)
@@ -100,4 +109,5 @@ for (const cellDiv of cellDivs) {
     cellDiv.addEventListener('click', clickedOnACell)
 }
 
+statusDiv.addEventListener('click', clickedOnStatus)
 

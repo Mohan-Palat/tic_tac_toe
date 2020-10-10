@@ -6,19 +6,46 @@
 
 body {
     color: #545454;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
     display: flex;
     justify-content: center;
 }
 
+section.status-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* color: white; */
+    flex: 200px;
+    flex-wrap: wrap;
+    height: 200px;
+    width: 730px;
+    background-image: url(http://getwallpapers.com/wallpaper/full/2/e/b/1406291-cool-inspirational-background-pictures-1920x1200.jpg);
+    background-repeat: no-repeat;
+    background-position: 0 65%;
+    background-size: cover;
+    text-align: center;
+    border-radius: 25px;
+    font: bold 3em 'Pinyon Script', cursive;
+    margin-bottom: 0; 
+  }
+  
+.mother {
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
     background: lightgray;
-    margin: 50px;
+    /* margin: 50px; */
+    margin-top: 10px; 
     padding: 50px;
     border-radius: 25px;
+    font-family: sans-serif;
 }
 
 .title {
+    display: flex;
     text-align: center;
 }
 
@@ -29,17 +56,18 @@ body {
 .status-action {
     display: flex;
     margin-top: 25px;
-    font-size: 25px;
-    justify-content: space-around;
+    justify-content: space-around; 
     height: 30px;
 }
 
 .reset {
     cursor: pointer;
+    font-size: 25px;
+    font-family: sans-serif;
 }
 
 .reset:hover {
-    color: white;
+    color: red;
 }
 
 .game-grid {
@@ -48,7 +76,7 @@ body {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-gap: 15px;
-    margin-top: 50px;
+    /* margin-top: 50px; */
 }
 
 .game-cell {
