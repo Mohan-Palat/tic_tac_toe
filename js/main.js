@@ -39,7 +39,6 @@ const checkGameStatus = () => {
                 winner =  currentBoard[winningCombo[0]]
                 for (let c=0; c<3; c++) // To change color to red
                     cellDivs[winningCombo[c]].classList.add('won') 
-                return
             }
     })
     if (winner === 'x' || winner === 'o') {
@@ -80,6 +79,26 @@ const pleasePlayAi = () => {
     })
     console.log(currentBoardMapped)
 
+    // AI Play 1, Check any winning possibility for the AI (O)
+
+    for(let i = 0; i<winningCombos.length; i++) {
+        console.log("XLEN", currentBoardMapped[i].filter(isX => isX === 'x').length)
+        console.log("OLEN", currentBoardMapped[i].filter(isO => isO === 'o').length)
+        if ( currentBoardMapped[i].filter(isX => isX === 'x').length === 0 &&
+             currentBoardMapped[i].filter(isO => isO === 'o').length === 2
+           ) {
+                for(let j=0; j<winningCombos[i].length; j++) {
+                    console.log(i, j, "WINCOM", winningCombos[i][j], "MAPPEDBRD", currentBoardMapped[i][j])
+                    if (currentBoardMapped[i][j] !== 'o') { // Mark the empty slot
+                        cellDivs[winningCombos[i][j]].classList.add('o')
+                        statusDiv.innerHTML = "O (AI Player) Wins"
+                        checkGameStatus()
+                        return
+                    }
+                } 
+        }
+    }
+
     // AI Play 2, Sabotage X's potential win row if any
 
     for(let i = 0; i<winningCombos.length; i++) {
@@ -90,14 +109,16 @@ const pleasePlayAi = () => {
            ) {
                 for(let j=0; j<winningCombos[i].length; j++) {
                     console.log(i, j, "WINCOM", winningCombos[i][j], "MAPPEDBRD", currentBoardMapped[i][j])
-                    if (currentBoardMapped[i][j] !== 'x') {
+                    if (currentBoardMapped[i][j] !== 'x') { // Mark the empty slot
                         cellDivs[winningCombos[i][j]].classList.add('o')
                         checkGameStatus()
                         return
                     }
                 } 
-            }
+        }
     }
+
+    // AI Play 3, Use the first empty cell on the board 
 
     let currentBoard = []
     for (let i=0; i<=8; i++) 
