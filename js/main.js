@@ -55,12 +55,60 @@ const checkGameStatus = () => {
             gameIsAlive = false
         } else {
             xToPlay = !xToPlay
-            if (xToPlay)
+            if (xToPlay) {
                 statusDiv.innerHTML = "X Goes Next"
-            else
-                statusDiv.innerHTML = "O Goes next"
+            } else  {
+                if (oIsAi) {
+                    pleasePlayAi() // AI plays for O and makes X's turn next
+                    statusDiv.innerHTML = "X Goes Next"
+                } else
+                    statusDiv.innerHTML = "O Goes next"
+            }
         }        
     }
+}
+
+const pleasePlayAi = () => {
+    console.log("AI is playing")
+    let currentBoardMapped = []
+    winningCombos.forEach((winningCombo) => {
+        let aWinningRow = []
+        aWinningRow.push(cellDivs[winningCombo[0]].classList[2])
+        aWinningRow.push(cellDivs[winningCombo[1]].classList[2])
+        aWinningRow.push(cellDivs[winningCombo[2]].classList[2])
+        currentBoardMapped.push(aWinningRow)
+    })
+    console.log(currentBoardMapped)
+
+    // AI Play 2, Sabotage X's potential win row if any
+
+    for(let i = 0; i<winningCombos.length; i++) {
+        console.log("XLEN", currentBoardMapped[i].filter(isX => isX === 'x').length)
+        console.log("OLEN", currentBoardMapped[i].filter(isO => isO === 'o').length)
+        if ( currentBoardMapped[i].filter(isX => isX === 'x').length === 2 &&
+             currentBoardMapped[i].filter(isO => isO === 'o').length === 0
+           ) {
+                for(let j=0; j<winningCombos[i].length; j++) {
+                    console.log(i, j, "WINCOM", winningCombos[i][j], "MAPPEDBRD", currentBoardMapped[i][j])
+                    if (currentBoardMapped[i][j] !== 'x') {
+                        cellDivs[winningCombos[i][j]].classList.add('o')
+                        checkGameStatus()
+                        return
+                    }
+                } 
+            }
+    }
+
+    let currentBoard = []
+    for (let i=0; i<=8; i++) 
+        currentBoard.push(cellDivs[i].classList[2])
+    let emptySlot
+    for (emptySlot=0; emptySlot<currentBoard.length; emptySlot++) 
+        if (!(currentBoard[emptySlot] === 'x' || currentBoard[emptySlot] === 'o')) 
+            break;
+    cellDivs[emptySlot].classList.add('o')
+    console.log(`After AI Plaved ${cellDivs}`)
+    checkGameStatus()
 }
 
 // Event Handlers
@@ -75,11 +123,17 @@ const clickedOnReset = (e) => {
         cellDiv.classList.remove('o')
         cellDiv.classList.remove('won')
     }
+    oIsAi = undefined;
+    statusDiv.innerHTML = "Tic Tac Toe, Click here for AI"
 }
 
 const clickedOnACell = (e) => {
     if (!gameIsAlive)
         return;
+    if (oIsAi===undefined)  {  // Started playing without choosing an AI Player
+        oIsAi = false;         // Default to "O is a human player"
+        console.log("O Player defaults to human")
+    }
     // classList Item 0 = game-cell
     // classList Item 1 = pos-??
     // classList Item 2 = x or o
@@ -96,8 +150,8 @@ const clickedOnStatus = (e) => {
     console.log(e)
     if (oIsAi===true || oIsAi===false) // Decided already
         return
-    console.log("AI Undecided")
     oIsAi = true
+    statusDiv.innerHTML = 'X to play first, O will be an AI Player'
 }
 
 // Event Listeners
