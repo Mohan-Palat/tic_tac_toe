@@ -1,12 +1,42 @@
 console.log("main.js loaded")
 
+/* 
+*********************************************************************
+
+Winner Implementation is based on the 2 dimentional arrays below
+
+  Winning Combos         Mapped Board           Current Board Layout
+  +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
+  |  0  |  1  |  2  |    |  X  |  O  |  X  |    |  0  |  1  |  2  |
+  +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
+  |  3  |  4  |  5  |    |  X  |  O  |     |    |  3  |  4  |  5  |
+  +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
+  |  6  |  7  |  8  |    |     |  O  |     |    |  6  |  7  |  8  |
+  +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
+  |  0  |  3  |  6  |    |  X  |  X  |     |
+  +-----+-----+-----+    +-----+-----+-----+
+  |  1  |  4  |  7  | -> |  O  |  O  |  O  |    Current Board Content
+  +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
+  |  2  |  5  |  8  |    |     |     |     |    |  X  |  O  |  X  |
+  +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
+  |  0  |  4  |  8  |    |  X  |  O  |     |    |  X  |  O  |     |
+  +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
+  |  2  |  4  |  6  |    |  X  |  O  |     |    |     |  O  |     |
+  +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
+
+*********************************************************************
+*/
+
+
 // HTML Elements
 
 const statusDiv = document.querySelector('.status-action')  // Status Display shows 1. ? Won 2. ?'s turn 3. Game tied
 const resetDiv = document.querySelector('.reset')           // Reset and restart button        
 const cellDivs = document.querySelectorAll('.game-cell')    // Board / Grid
 
-// Game Variables
+// **********************************************
+//              Game Variables
+// **********************************************
 
 let gameIsAlive = true;
 let xToPlay = true;
@@ -22,14 +52,20 @@ const winningCombos = [
     [2, 4, 6]
 ]
 
-// Game Functions
+// **********************************************
+//                Game Functions
+// **********************************************
+
+// Function Check Game Status - Checks for the following in that order
+//   1. There is a win  2. Game is a tie  3. Setup and announce the next player
 
 const checkGameStatus = () => {
     let currentBoard = []
-    for (let i=0; i<=8; i++) 
+    for (let i=0; i<=8; i++) // Build the current board using the div class o/x currently present
         currentBoard.push(cellDivs[i].classList[2])
+ 
     let winner = 'z'
-    winningCombos.forEach((winningCombo) => {
+    winningCombos.forEach((winningCombo) => { // Check current board against 8 winning combos
         if (currentBoard[winningCombo[0]] &&
             currentBoard[winningCombo[0]] === currentBoard[winningCombo[1]] &&
             currentBoard[winningCombo[0]] === currentBoard[winningCombo[2]]) {
@@ -38,6 +74,7 @@ const checkGameStatus = () => {
                     cellDivs[winningCombo[c]].classList.add('won') 
             }
     })
+
     if (winner === 'x' || winner === 'o') {
         gameIsAlive = false
         statusDiv.innerHTML = winner === 'x' ? "x has won" : oIsAi ? "o (AI) has won": "o has won"
@@ -64,8 +101,14 @@ const checkGameStatus = () => {
     }
 }
 
+// Function Please Play AI
+//   Play 1. Board has a potential winning combination for self [o][o][undefined]
+//   Play 2. Board has a potential winning combination for opponent [x][x][undefined]. Sabotage
+//   Play 3. If available, occuppy the middle of the board (Maybe an overkill)
+//   Play 4. Occuppy the earliest availavle game cell
+
 const pleasePlayAi = () => {
-    let currentBoardMapped = []
+    let currentBoardMapped = [] // Build current board mapped to each winning combo
     winningCombos.forEach((winningCombo) => {
         let aWinningRow = []
         aWinningRow.push(cellDivs[winningCombo[0]].classList[2])
@@ -79,7 +122,7 @@ const pleasePlayAi = () => {
     for(let i = 0; i<winningCombos.length; i++) {
         if ( currentBoardMapped[i].filter(isX => isX === 'x').length === 0 &&
              currentBoardMapped[i].filter(isO => isO === 'o').length === 2
-           ) {
+           ) { // Two O's and no X's in a row on the board
                 for(let j=0; j<winningCombos[i].length; j++) {
                     if (currentBoardMapped[i][j] !== 'o') { // Mark the empty slot
                         cellDivs[winningCombos[i][j]].classList.add('o')
@@ -96,7 +139,7 @@ const pleasePlayAi = () => {
     for(let i = 0; i<winningCombos.length; i++) {
         if ( currentBoardMapped[i].filter(isX => isX === 'x').length === 2 &&
              currentBoardMapped[i].filter(isO => isO === 'o').length === 0
-           ) {
+           ) { // Two X's and no O's in a row on the board
                 for(let j=0; j<winningCombos[i].length; j++) {
                     if (currentBoardMapped[i][j] !== 'x') { // Mark the empty slot
                         cellDivs[winningCombos[i][j]].classList.add('o')
@@ -109,7 +152,7 @@ const pleasePlayAi = () => {
 
     // AI Play 3, Be center of the board (If X did not steal it already) 
 
-    if (!cellDivs[4].classList[2]) {
+    if (!cellDivs[4].classList[2]) {  // Cell index 4 is the middle of the board
         cellDivs[4].classList.add('o')
         checkGameStatus()
         return
@@ -128,7 +171,11 @@ const pleasePlayAi = () => {
     checkGameStatus()
 }
 
-// Event Handlers
+// **********************************************
+//                Event Handlers
+// **********************************************
+
+// Reset Button handler function
 
 const clickedOnReset = (e) => {
     xToPlay = true
@@ -143,6 +190,8 @@ const clickedOnReset = (e) => {
     statusDiv.innerHTML = "Tic Tac Toe, Click here for AI"
 }
 
+// Click on a cell function
+
 const clickedOnACell = (e) => {
     if (!gameIsAlive)
         return;
@@ -154,14 +203,14 @@ const clickedOnACell = (e) => {
     // classList Item 2 = x or o
     const classList = e.target.classList;
     if (classList[2] === 'x' || classList[2] === 'o') {
-        return;
+        return; // If the cell has alredy been marked don't do anything 
     }
-    classList.add(xToPlay ? 'x' : 'o')
+    classList.add(xToPlay ? 'x' : 'o') // Add a class for the row in HTML
     checkGameStatus()
 }
 
-const clickedOnStatus = (e) => {
-    if (oIsAi===true || oIsAi===false) // Decided already
+const clickedOnStatus = (e) => { // Status Dispal is used as a button to choose AI Opponent
+    if (oIsAi===true || oIsAi===false) // If decided already, don't do anything
         return
     oIsAi = true
     statusDiv.innerHTML = 'X to play first, O will be an AI Player'
@@ -169,11 +218,11 @@ const clickedOnStatus = (e) => {
 
 // Event Listeners
 
-resetDiv.addEventListener('click', clickedOnReset)
+resetDiv.addEventListener('click', clickedOnReset) // Listener for reset button
 
-for (const cellDiv of cellDivs) {
+for (const cellDiv of cellDivs) { // Listener for each each game cell on the grid
     cellDiv.addEventListener('click', clickedOnACell)
 }
 
-statusDiv.addEventListener('click', clickedOnStatus)
+statusDiv.addEventListener('click', clickedOnStatus) // Listener for status display
 
