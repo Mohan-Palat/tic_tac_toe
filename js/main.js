@@ -1,7 +1,7 @@
 console.log("main.js loaded")
 
 /* 
-*********************************************************************
+******************************************************************************************
 
 Winner Implementation is based on the 2 dimentional arrays below
 
@@ -24,7 +24,73 @@ Winner Implementation is based on the 2 dimentional arrays below
   |  2  |  4  |  6  |    |  X  |  O  |     |    |     |  O  |     |
   +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
 
-*********************************************************************
+Pseudocode (of the initial release on 10/14/2020)
+-------------------------------------------------
+a. Start up 
+   {
+     The following will be presented on the UI {
+     An empty board, Status/Action Box and Reset button will be 
+     User can click on the Status/Action to choose an AI Opponent
+     Prompt on Status/Action will be "X to play"
+     Switch game alive to "on"
+   }
+
+b. Once player clicks on the board cells to play 
+   {
+     If the game is not alive (dies when someone won or lost or tied)
+       Do nothing (Player has to reset to continue)
+     Add class x to the correponding Div defenition in the HTML
+     Check Game Status
+       A. Is there a winner
+       {
+         If yes, 
+           Add class "won" to the 3 winning div elements in HTML
+           This will change the winning combo on the board to red
+           Switch the game alive to "off"
+       }
+       B. Is the game tied
+       { 
+         Happens when the following two conditions are true 
+           1. There are no empty cells on the board
+           2. There is no winner or looser yet
+         If yes, Switch the game alive to "off" and do nothing else
+         At this point the player has to click "Reset" to get a new game
+       }
+       C. If (A) and (B) did not happen, the game needs to continue
+       {
+         Switch the user (X to O / O to X)
+         If O is an AI Player follow the step (c)
+       } 
+       D. Otherwise
+       { 
+         Display prompt "O is next" and wait for the user
+         Repeat step (b) for player O
+       }
+
+c. AI Play       
+  The AI plays based on the following four conditions
+  If board has a potential winning combination for self [o][o][undefined]
+  {
+    Mark that game cell to make it [o][o][o]  
+  } else If board has a potential winning combination for opponent [x][x][undefined] {
+    Sabotage oponent by marking the row thusly - [x][x][x]  
+  } else if middle of the board (Cell 4) is available
+  {
+    Mark Cell 4 with o  
+  } else
+  {
+    Mark the earliest available empty game cell
+  }
+
+d. After every play the step (b) is executed to check current job status
+
+c. Player clicked "Reset" Button
+   {
+      Clear the classes o, x and won
+      Do the steps from (a)
+   }
+
+  ******************************************************************************************
 */
 
 
