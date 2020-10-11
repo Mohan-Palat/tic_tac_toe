@@ -58,6 +58,7 @@ section.status-action {
     margin-top: 25px;
     justify-content: space-around; 
     height: 30px;
+    cursor: pointer;
 }
 
 .reset {
