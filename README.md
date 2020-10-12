@@ -1,20 +1,20 @@
 # tic_tac_toe
 
-###Grid 1. Current Board Content (O has won)
+### Grid 1. Current Board Content (O has won)
   | COL1 | COL2 | COL3 |
   |:-----:|:-----:|:-----:|
   |  X  |  O  |  X  |
   |  X  |  O  |     |       
   |     |  O  |     |      
 
-###Grid 2. Current board Layout
+### Grid 2. Current board Layout
   | COL1 | COL2 | COL3 |
   |:-----:|:-----:|:-----:|
   |  0  |  1  |  2  |
   |  3  |  4  |  5  |
   |  6  |  7  |  8  |        
 
-###Grid 3. Mapped Current Board (O has won)
+### Grid 3. Mapped Current Board (O has won)
   | COL1 | COL2 | COL3 |   
   |:-----:|:-----:|:-----:|
   |  X  |  O  |  X  |      
@@ -26,7 +26,7 @@
   |  X  |  O  |     |      
   |  X  |  O  |     |    
 
-###Grid 4. Winning Combinations 
+### Grid 4. Winning Combinations 
   | COL1 | COL2 | COL3|    
   |:-----:|:-----:|:-----:|
   |  0  |  1  |  2  |      
