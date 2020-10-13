@@ -22,7 +22,7 @@ HTML, CSS and JavaScript
 ### 3.2 Pseudocode
 a. Start up   
    {  
-     The following will be presented on the UI {  
+     The following will be presented on the UI   
      An empty board, Status/Action Box and Reset button will be   
      User can click on the Status/Action to choose an AI Opponent  
      Prompt on Status/Action will be "X to play"  
@@ -89,15 +89,15 @@ f. Background Music
    During the play, if the player wants quite, she or he can click on the status display to pause the player   
   
 ## 4. User Stories and status of completion
-* As a user, I should be able to start a new tic tac toe game. ** Status: Completed **
-* As a user, I should be able to click on a square to add X first and then O, and so on ** Status: Completed **
-* As a user, I should be shown a message after each turn for if I win, lose, tie or who's turn it is next ** Status: Completed **
-* As a user, I should not be able to click the same square twice ** Status: Completed **
-* As a user, I should be shown a message when I win, lose or tie ** Status: Completed **
-* As a user, I should not be able to continue playing once I win, lose, or tie ** Status: Completed **
-* As a user, I should be able to play the game again without refreshing the page ** Status: Completed **
+* As a user, I should be able to start a new tic tac toe game. **Status: Completed**
+* As a user, I should be able to click on a square to add X first and then O, and so on **Status: Completed**
+* As a user, I should be shown a message after each turn for if I win, lose, tie or who's turn it is next **Status: Completed**
+* As a user, I should not be able to click the same square twice **Status: Completed**
+* As a user, I should be shown a message when I win, lose or tie **Status: Completed**
+* As a user, I should not be able to continue playing once I win, lose, or tie **Status: Completed**
+* As a user, I should be able to play the game again without refreshing the page **Status: Completed**
 
-## 5. Planning, Development Process and Problem soving strategy
+## 5. Planning, Development Process and Problem solving strategy
 The original solution was to check each of the eight winning conditions per the grid below (Paragraph 7 Solving for the winner)
 It was quite interesting to do the solutioning using arrays instead of tedious if-else's They also provide no scope for expansion
 AI development was fun and fulfilling. There were two funny errors as below which were eventually resolved
@@ -203,5 +203,5 @@ We can then map Grid 4 back to Grid 2 to get exact positions (make decisions on 
 * Store the status to keep track of scores in the repeating games
 * Expand the board to 4x4, 5x5 .. nxn 
 * Enable to play over the internet
-
+* My favorite music is all m4a files which did not play. Using MP3 for now
 
