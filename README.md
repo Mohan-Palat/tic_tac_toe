@@ -38,7 +38,7 @@
   |  0  |  4  |  8  |      
   |  2  |  4  |  6  |      
 
-'''html
+```html
     <div class="game-grid">
         <div class="game-cell pos-tl x"></div>
         <div class="game-cell pos-tm o won"></div>
@@ -50,7 +50,7 @@
         <div class="game-cell pos-bm o won"></div>
         <div class="game-cell pos-br"></div>
     </div>
-'''
+```
 
 
 
