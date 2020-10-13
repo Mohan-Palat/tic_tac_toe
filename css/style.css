@@ -80,6 +80,10 @@ section.status-action {
     /* margin-top: 50px; */
 }
 
+.game-cell:hover {
+    background: hotpink
+}
+
 .game-cell {
     background: lightgray;
     display: flex;

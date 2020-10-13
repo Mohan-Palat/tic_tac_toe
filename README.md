@@ -1,11 +1,28 @@
-# tic_tac_toe
+# Project 1. Tic Tac Toe
+
+## 1. Technologies used 
+
+HTML, CSS and JavaScript
+
+## 2. Learning experiance / Approach
+* Flex Box / Grid
+* Object inside another - Array inside Array, Function inside function and Anonymous functions
+* Array Functions - In the following code snippet, 
+```JavaScript
+        if ( currentBoardMapped[i].filter(isX => isX === 'x').length === 0 &&
+             currentBoardMapped[i].filter(isO => isO === 'o').length === 2
+           )
+```
+
+
+![Wireframe](./music/Fireflies.mp3)
 
 ### Grid 1. Current Board Content (O has won)
   | COL1 | COL2 | COL3 |
   |:-----:|:-----:|:-----:|
-  |  X  |  O  |  X  |
-  |  X  |  O  |     |       
-  |     |  O  |     |      
+  |  X  |  `O`  |  X  |
+  |  X  |  `O`  |     |       
+  |     |  `O`  |     |      
 
 ### Grid 2. Current board Layout
   | COL1 | COL2 | COL3 |
@@ -21,7 +38,7 @@
   |  X  |  O  |     |      
   |     |  O  |     |      
   |  X  |  X  |     |
-  |  O  |  O  |  O  |      
+  |  `O`  |  `O`  |  `O`  |      
   |     |     |     |      
   |  X  |  O  |     |      
   |  X  |  O  |     |    
