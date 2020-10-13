@@ -15,7 +15,7 @@ HTML, CSS and JavaScript
 ```
 
 
-![Wireframe](./music/Fireflies.mp3)
+![Wireframe](./images/TicTacToe_Wireframe.jpg)
 
 ### Grid 1. Current Board Content (O has won)
   | COL1 | COL2 | COL3 |
