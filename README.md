@@ -50,7 +50,7 @@
         <div class="game-cell pos-bm o won"></div>
         <div class="game-cell pos-br"></div>
     </div>
-
+'''
 
 
 
