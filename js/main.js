@@ -97,11 +97,16 @@ c. AI Play
 
 d. After every play the step (b) is executed to check current job status
 
-c. Player clicked "Reset" Button
+e. Player clicked "Reset" Button
    {
       Clear the classes o, x and won
       Do the steps from (a)
    }
+
+f. Background Music
+   if the player clicks on a game cell on the board music begins to play
+   During the play, if the player wants quite, she or he can click on the status display 
+   to pause the player 
 
   ******************************************************************************************
 */

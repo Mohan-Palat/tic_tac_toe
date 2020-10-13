@@ -20,7 +20,8 @@ section.status-action {
     flex-wrap: wrap;
     height: 200px;
     width: 730px;
-    background-image: url(http://getwallpapers.com/wallpaper/full/2/e/b/1406291-cool-inspirational-background-pictures-1920x1200.jpg);
+    /* background-image: url(http://getwallpapers.com/wallpaper/full/2/e/b/1406291-cool-inspirational-background-pictures-1920x1200.jpg); */
+    background-image: url(./inspirational.jpeg);
     background-repeat: no-repeat;
     background-position: 0 65%;
     background-size: cover;
