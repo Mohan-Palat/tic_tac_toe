@@ -24,6 +24,19 @@ Winner Implementation is based on the 2 dimentional arrays below
   |  2  |  4  |  6  |    |  X  |  O  |     |    |     |  O  |     |
   +-----+-----+-----+    +-----+-----+-----+    +-----+-----+-----+
 
+  HTML Content in the above situation where O has won
+      <div class="game-grid">
+        <div class="game-cell pos-tl x"></div>
+        <div class="game-cell pos-tm o won"></div>
+        <div class="game-cell pos-tr x"></div>
+        <div class="game-cell pos-ml x"></div>
+        <div class="game-cell pos-mm o won"></div>
+        <div class="game-cell pos-mr"></div>
+        <div class="game-cell pos-bl"></div>
+        <div class="game-cell pos-bm o won"></div>
+        <div class="game-cell pos-br"></div>
+    </div>
+
 Pseudocode (of the initial release on 10/14/2020)
 -------------------------------------------------
 a. Start up 
@@ -92,8 +105,7 @@ c. Player clicked "Reset" Button
 
   ******************************************************************************************
 */
-
-
+  
 // HTML Elements
 
 const statusDiv = document.querySelector('.status-action')  // Status Display shows 1. ? Won 2. ?'s turn 3. Game tied
@@ -107,6 +119,8 @@ const cellDivs = document.querySelectorAll('.game-cell')    // Board / Grid
 let gameIsAlive = true;
 let xToPlay = true;
 let oIsAi = undefined;
+let bgMusicIsOn = false;
+let userStoppedMusic = false;
 const winningCombos = [
     [0, 1, 2],                  // Using the array inside array for winning grid
     [3, 4, 5],                  // and array created from div class list
@@ -121,6 +135,25 @@ const winningCombos = [
 // **********************************************
 //                Game Functions
 // **********************************************
+
+// Background Music Setup
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+      this.sound.play();
+    }
+    this.stop = function(){
+      this.sound.pause();
+    }
+}
+
+const bgMusic = new sound("./music/Fireflies.mp3")
 
 // Function Check Game Status - Checks for the following in that order
 //   1. There is a win  2. Game is a tie  3. Setup and announce the next player
@@ -254,11 +287,18 @@ const clickedOnReset = (e) => {
     }
     oIsAi = undefined;
     statusDiv.innerHTML = "Tic Tac Toe, Click here for AI"
+    bgMusicIsOn = false
+    userStoppedMusic = false
 }
 
 // Click on a cell function
 
 const clickedOnACell = (e) => {
+    // bgSound.play("./music/Saxophone_BG.m4a") m4a not playing
+    if (!bgMusicIsOn && !userStoppedMusic) {
+        bgMusic.play()
+        bgMusicIsOn = true
+    }
     if (!gameIsAlive)
         return;
     if (oIsAi===undefined)  {  // Started playing without choosing an AI Player
@@ -276,8 +316,14 @@ const clickedOnACell = (e) => {
 }
 
 const clickedOnStatus = (e) => { // Status Dispal is used as a button to choose AI Opponent
-    if (oIsAi===true || oIsAi===false) // If decided already, don't do anything
+    if (oIsAi===true || oIsAi===false) { // If decided already, use it to turn off music and do nothing else
+        if (bgMusicIsOn) {
+            bgMusic.stop()
+            bgMusicIsOn = false
+            userStoppedMusic = true
+        }
         return
+    }
     oIsAi = true
     statusDiv.innerHTML = 'X to play first, O will be an AI Player'
 }
